@@ -57,20 +57,16 @@ class OrderBookAdapter : ListAdapter<OrderBook, OrderBookAdapter.OrderBookViewHo
 
     inner class OrderBookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(orderBook: OrderBook) {
-            // Здесь привяжите данные orderBook к вашим view элементам, например:
-            // itemView.textViewPrice.text = orderBook.price.toString()
-            // itemView.textViewVolume.text = orderBook.volume.toString()
+
         }
     }
 
     class OrderBookDiffCallback : DiffUtil.ItemCallback<OrderBook>() {
         override fun areItemsTheSame(oldItem: OrderBook, newItem: OrderBook): Boolean {
-            // Здесь предоставьте логику для проверки, являются ли элементы одним и тем же (обычно сравнение ID)
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: OrderBook, newItem: OrderBook): Boolean {
-            // Здесь предоставьте логику для проверки, являются ли содержимое элементов одинаковыми
             return oldItem == newItem
         }
     }
