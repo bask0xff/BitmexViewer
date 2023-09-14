@@ -35,9 +35,9 @@ class MainActivity : AppCompatActivity() {
         "BCHUSD",
         "XRPUSD",
         "ADAUSD",
-        "EOSUSD",
-        "TRXUSD",
-        "ZECUSD",
+        "XBTEUR",
+        "XBT_USDT",
+        "XBTUSDT",
         "BMEXUSD"
     )
 
