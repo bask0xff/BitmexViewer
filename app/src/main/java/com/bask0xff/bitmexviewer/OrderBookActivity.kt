@@ -15,6 +15,7 @@ import com.bask0xff.bitmexviewer.data.OrderBook
 import com.bask0xff.bitmexviewer.data.Ticker
 import com.bask0xff.bitmexviewer.model.TradeData
 import com.bask0xff.bitmexviewer.model.TradeMessage
+import com.bask0xff.bitmexviewer.utils.Constants
 import com.bask0xff.bitmexviewer.utils.Utils
 import com.bask0xff.bitmexviewer.viewmodel.OrderBookViewModel
 import com.google.gson.Gson
@@ -41,8 +42,7 @@ class OrderBookActivity : AppCompatActivity() {
             //viewModel.initializeWebSocket(symbol)
         }
 
-        val websocketUrl = "wss://www.bitmex.com/realtime"
-        val request = Request.Builder().url(websocketUrl).build()
+        val request = Request.Builder().url(Constants.websocketUrl).build()
         val websocket = OkHttpClient().newWebSocket(request, object : WebSocketListener() {
 
             override fun onOpen(webSocket: WebSocket, response: Response) {
@@ -84,7 +84,7 @@ class OrderBookActivity : AppCompatActivity() {
             }
         })
     }
-    
+
     private fun setupRecyclerView() {
         adapter = OrderBookAdapter()
         findViewById<RecyclerView>(R.id.recyclerView2).adapter = adapter

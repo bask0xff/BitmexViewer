@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bask0xff.bitmexviewer.data.Ticker
 import com.bask0xff.bitmexviewer.model.TradeData
 import com.bask0xff.bitmexviewer.model.TradeMessage
+import com.bask0xff.bitmexviewer.utils.Constants.Companion.websocketUrl
 import com.bask0xff.bitmexviewer.utils.Utils
 import com.bask0xff.bitmexviewer.viewmodel.MainViewModel
 import com.google.gson.Gson
@@ -51,8 +52,6 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView()
         setupObservers()
 
-
-        val websocketUrl = "wss://www.bitmex.com/realtime"
         val request = Request.Builder().url(websocketUrl).build()
         val websocket = OkHttpClient().newWebSocket(request, object : WebSocketListener() {
 
@@ -95,9 +94,7 @@ class MainActivity : AppCompatActivity() {
                 Log.e("WebSocket", "Connection failed: ${t.message}")
             }
         })
-
     }
-
 
     private fun setupRecyclerView() {
         Log.d(TAG, "setupRecyclerView: ")
