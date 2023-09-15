@@ -25,7 +25,6 @@ class OrderBookActivity : AppCompatActivity() {
 
     private val TAG = "OrderBookActivity"
     private lateinit var viewModel: OrderBookViewModel
-    private lateinit var adapter: OrderBookAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +32,6 @@ class OrderBookActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(OrderBookViewModel::class.java)
 
-        setupRecyclerView()
         setupObservers()
 
         val symbol = intent.getStringExtra("SYMBOL")
@@ -85,45 +83,10 @@ class OrderBookActivity : AppCompatActivity() {
         })
     }
 
-    private fun setupRecyclerView() {
-        adapter = OrderBookAdapter()
-        findViewById<RecyclerView>(R.id.recyclerView2).adapter = adapter
-    }
-
     private fun setupObservers() {
         viewModel.orderBookLiveData.observe(this) { orderBook ->
             Log.d(TAG, "setupObservers: $orderBook")
-            adapter.submitList(orderBook)
         }
     }
 }
 
-class OrderBookAdapter : ListAdapter<OrderBook, OrderBookAdapter.OrderBookViewHolder>(OrderBookDiffCallback()) {
-
-    private val TAG = "OrderBookAdapter"
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderBookViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_order_book, parent, false)
-        return OrderBookViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: OrderBookViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
-
-    inner class OrderBookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(orderBook: OrderBook) {
-            Log.d(TAG, "bind: ${orderBook.amount}")
-        }
-    }
-
-    class OrderBookDiffCallback : DiffUtil.ItemCallback<OrderBook>() {
-        override fun areItemsTheSame(oldItem: OrderBook, newItem: OrderBook): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: OrderBook, newItem: OrderBook): Boolean {
-            return oldItem == newItem
-        }
-    }
-}
