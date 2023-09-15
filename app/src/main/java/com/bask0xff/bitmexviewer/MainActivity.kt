@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bask0xff.bitmexviewer.data.Ticker
 import com.bask0xff.bitmexviewer.model.TradeData
 import com.bask0xff.bitmexviewer.model.TradeMessage
+import com.bask0xff.bitmexviewer.utils.Utils
 import com.bask0xff.bitmexviewer.viewmodel.MainViewModel
 import com.google.gson.Gson
 import okhttp3.*
@@ -68,16 +69,14 @@ class MainActivity : AppCompatActivity() {
                 super.onMessage(webSocket, text)
                 Log.d("WebSocket", "Received message: $text")
 
-                val tradeMessage = parseMessage(text)
+                val tradeMessage = Utils.parseMessage(text)
                 Log.d("WebSocket", "tradeMessage: $tradeMessage")
 
                 if(tradeMessage.table != null) {
-                    val tickers = tradeDataToTickers(tradeMessage.data)
+                    val tickers = Utils.tradeDataToTickers(tradeMessage.data)
                     Log.d(TAG, "tickers: $tickers")
 
-
-
-                    val newTickers = tradeDataToTickers(tradeMessage.data)
+                    val newTickers = Utils.tradeDataToTickers(tradeMessage.data)
                     val currentTickers = viewModel.tickersLiveData.value ?: emptyList()
 
                     newTickers.forEach { newTicker ->
@@ -97,23 +96,8 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
     }
 
-    private fun parseMessage(message: String): TradeMessage {
-        val gson = Gson()
-        return gson.fromJson(message, TradeMessage::class.java)
-    }
-
-    private fun tradeDataToTickers(tradeDataList: List<TradeData>): List<Ticker> {
-        return tradeDataList.map { tradeData ->
-            Ticker(
-                timestamp = tradeData.timestamp,
-                symbol = tradeData.symbol,
-                price = tradeData.price
-            )
-        }
-    }
 
     private fun setupRecyclerView() {
         Log.d(TAG, "setupRecyclerView: ")
