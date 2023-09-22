@@ -6,27 +6,27 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/id"
+        android:id="@+id/priceTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Id"
+        android:text="price"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/textViewPrice"
+        android:id="@+id/sizeTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Price"
+        android:text="size"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/textViewVolume"
+        android:id="@+id/sideTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Volume"
+        android:text="-"
         android:textSize="16sp" />
 
 </LinearLayout>
