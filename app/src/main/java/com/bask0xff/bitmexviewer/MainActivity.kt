@@ -15,12 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bask0xff.bitmexviewer.data.Ticker
-import com.bask0xff.bitmexviewer.model.TradeData
-import com.bask0xff.bitmexviewer.model.TradeMessage
 import com.bask0xff.bitmexviewer.utils.Constants.Companion.websocketUrl
 import com.bask0xff.bitmexviewer.utils.Utils
 import com.bask0xff.bitmexviewer.viewmodel.MainViewModel
-import com.google.gson.Gson
 import okhttp3.*
 
 class MainActivity : AppCompatActivity() {

@@ -2,7 +2,7 @@ package com.bask0xff.bitmexviewer.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseModel(
+data class OrderBookModel(
     @SerializedName("table")
     val table: String,
     @SerializedName("action")

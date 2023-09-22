@@ -3,22 +3,12 @@ package com.bask0xff.bitmexviewer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bask0xff.bitmexviewer.data.OrderBook
-import com.bask0xff.bitmexviewer.data.Ticker
-import com.bask0xff.bitmexviewer.model.ResponseModel
-import com.bask0xff.bitmexviewer.model.TradeData
-import com.bask0xff.bitmexviewer.model.TradeMessage
+import com.bask0xff.bitmexviewer.model.OrderBookModel
 import com.bask0xff.bitmexviewer.utils.Constants
-import com.bask0xff.bitmexviewer.utils.Utils
 import com.bask0xff.bitmexviewer.view.OrderBookAdapter
 import com.bask0xff.bitmexviewer.viewmodel.OrderBookViewModel
 import com.google.gson.Gson
@@ -65,7 +55,7 @@ class OrderBookActivity : AppCompatActivity() {
                 Log.d(TAG, "WebSocket, Received message: $text")
 
                 try {
-                    val data = Gson().fromJson(text, ResponseModel::class.java).data
+                    val data = Gson().fromJson(text, OrderBookModel::class.java).data
                     viewModel.updateOrderBookData(data)
                 }
                 catch (e: Exception){

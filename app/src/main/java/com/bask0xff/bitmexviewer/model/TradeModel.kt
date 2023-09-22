@@ -1,6 +1,6 @@
 package com.bask0xff.bitmexviewer.model
 
-data class TradeMessage(
+data class TradeModel(
     val table: String,
     val action: String,
     val data: List<TradeData>
