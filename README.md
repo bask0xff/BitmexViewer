@@ -1,2 +1,2 @@
 # BitmexViewer
-Demo Android application demonstrated receiving cryptocurrencies data in real-time from Bitmex via websocket
+The demo Android application showcases real-time cryptocurrency data retrieval from Bitmex using websockets.
