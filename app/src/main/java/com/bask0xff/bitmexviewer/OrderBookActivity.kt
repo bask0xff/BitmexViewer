@@ -25,6 +25,7 @@ class OrderBookActivity : AppCompatActivity() {
 
     private val TAG = "OrderBookActivity"
     private lateinit var viewModel: OrderBookViewModel
+    private val orderBookLevel = "orderBookL2_25"//"orderBook10"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,46 +35,27 @@ class OrderBookActivity : AppCompatActivity() {
 
         setupObservers()
 
-        val symbol = intent.getStringExtra("SYMBOL")
-        if (symbol != null) {
-            findViewById<TextView>(R.id.tickerName).text = symbol
-            //viewModel.initializeWebSocket(symbol)
-        }
+        val symbol = intent.getStringExtra("SYMBOL") ?: return
 
-        val request = Request.Builder().url(Constants.websocketUrl).build()
+        findViewById<TextView>(R.id.tickerName).text = symbol
+        //viewModel.initializeWebSocket(symbol)
+
+        val orderBookWsUrl = Constants.websocketOrderBookUrl.replace("#orderbook#", orderBookLevel).replace("#symbol#", symbol)
+        val request = Request.Builder().url(orderBookWsUrl).build()
         val websocket = OkHttpClient().newWebSocket(request, object : WebSocketListener() {
 
             override fun onOpen(webSocket: WebSocket, response: Response) {
                 super.onOpen(webSocket, response)
                 Log.d("WebSocket", "Connection opened")
 
-                webSocket.send("{\"op\": \"subscribe\", \"args\": [\"trade:$symbol\"]}")
+                webSocket.send("{\"op\": \"subscribe\", \"args\": [\"$orderBookLevel:$symbol\"]}")
             }
 
             override fun onMessage(webSocket: WebSocket, text: String) {
                 super.onMessage(webSocket, text)
                 Log.d(TAG, "WebSocket, Received message: $text")
 
-                val tradeMessage = Utils.parseMessage(text)
-                Log.d("WebSocket", "tradeMessage: $tradeMessage")
 
-                if(tradeMessage.table != null) {
-                    val tickers = Utils.tradeDataToTickers(tradeMessage.data)
-                    Log.d(TAG, "tickers: $tickers")
-
-                    val newTickers = Utils.tradeDataToTickers(tradeMessage.data)
-                    val currentTickers = viewModel.tickersLiveData.value ?: emptyList()
-
-                    currentTickers.forEach { currentTicker ->
-
-                        currentTicker.price
-                        Log.d(TAG, "onMessage: price: ${currentTicker.price}")
-
-                        findViewById<TextView>(R.id.tickerName).text =
-                            "$symbol : ${currentTicker.price}"
-                    }
-                    viewModel.addAndNotifyTickers(newTickers)
-                }
             }
 
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
