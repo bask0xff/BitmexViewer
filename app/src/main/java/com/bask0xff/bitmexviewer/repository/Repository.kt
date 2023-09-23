@@ -1,5 +1,6 @@
 package com.bask0xff.bitmexviewer.repository
 
+import com.bask0xff.bitmexviewer.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocketListener
@@ -9,7 +10,7 @@ class Repository {
 
     fun initializeWebSocket(symbol: String, listener: WebSocketListener) {
         val request = Request.Builder()
-            .url("wss://www.bitmex.com/realtime?subscribe=trade:$symbol")
+            .url("${Constants.websocketUrl}?subscribe=trade:$symbol")
             .build()
         okHttpClient.newWebSocket(request, listener)
     }

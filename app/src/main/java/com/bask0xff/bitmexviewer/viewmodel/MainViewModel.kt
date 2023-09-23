@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bask0xff.bitmexviewer.data.OrderBook
 import com.bask0xff.bitmexviewer.data.Ticker
 import com.bask0xff.bitmexviewer.repository.Repository
 import okhttp3.WebSocket
@@ -14,7 +13,6 @@ class MainViewModel : ViewModel() {
     private val TAG = "MainViewModel"
     private val repository = Repository()
     val tickerLiveData = MutableLiveData<List<Ticker>>()
-    val orderBookLiveData = MutableLiveData<List<OrderBook>>()
 
     private val _tickersLiveData = MutableLiveData<List<Ticker>>()
     val tickersLiveData: LiveData<List<Ticker>> get() = _tickersLiveData
