@@ -1,14 +1,22 @@
 package com.bask0xff.bitmexviewer
 
 import android.content.Intent
+import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +27,8 @@ import com.bask0xff.bitmexviewer.utils.Constants.Companion.websocketUrl
 import com.bask0xff.bitmexviewer.utils.Utils
 import com.bask0xff.bitmexviewer.viewmodel.MainViewModel
 import okhttp3.*
+import kotlin.random.Random
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -151,7 +161,22 @@ class TickerAdapter(private val onClick: (String) -> Unit) : ListAdapter<Ticker,
                 }
             }
 
-            itemView.findViewById<TextView>(R.id.textViewTimestamp).text = ticker.timestamp.replace("Z", "").replace("T", " ").substring(0, 16)
+            val img = itemView.findViewById<ImageView>(R.id.imageChart) as ImageView
+            val bmp = Bitmap.createBitmap(100, 50, Bitmap.Config.RGB_565)
+           val cnvs = Canvas(bmp)
+            //img.setImageBitmap(bmp);
+            val paint = Paint()
+            val r = Random(1)
+            paint.color = Color.argb(255, r.nextInt(256), r.nextInt(256), r.nextInt(256))
+
+            cnvs.drawRect(5f, 5f, 10f, 10f, paint)
+
+            //cnvs.drawBitmap(BitmapFactory.decodeFile(picPath), 0, 0, null);
+            cnvs.drawRect(20f, 20f,50f,50f , paint);
+            img.setImageBitmap(bmp);
+
+            itemView.findViewById<TextView>(R.id.textViewTimestamp).text = ticker.timestamp.
+                replace("Z", "").replace("T", " ").substring(0, 16)
             itemView.setOnClickListener {
                 onClick(ticker.symbol)
             }
