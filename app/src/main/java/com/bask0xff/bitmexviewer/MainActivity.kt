@@ -166,7 +166,7 @@ class TickerAdapter(private val onClick: (String) -> Unit) : ListAdapter<Ticker,
            val cnvs = Canvas(bmp)
             //img.setImageBitmap(bmp);
             val paint = Paint()
-            val r = Random(1)
+            val r = Random(System.nanoTime())
             paint.color = Color.argb(255, r.nextInt(256), r.nextInt(256), r.nextInt(256))
 
             cnvs.drawRect(5f, 5f, 10f, 10f, paint)
