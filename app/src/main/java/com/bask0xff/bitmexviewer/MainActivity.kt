@@ -167,12 +167,13 @@ class TickerAdapter(private val onClick: (String) -> Unit) : ListAdapter<Ticker,
             //img.setImageBitmap(bmp);
             val paint = Paint()
             val r = Random(System.nanoTime())
+
+            paint.color = Color.WHITE
+            cnvs.drawRect(0f, 0f, 10f, 10f, paint)
+
             paint.color = Color.argb(255, r.nextInt(256), r.nextInt(256), r.nextInt(256))
+            cnvs.drawRect(1f, 1f,500f,500f , paint);
 
-            cnvs.drawRect(5f, 5f, 10f, 10f, paint)
-
-            //cnvs.drawBitmap(BitmapFactory.decodeFile(picPath), 0, 0, null);
-            cnvs.drawRect(20f, 20f,50f,50f , paint);
             img.setImageBitmap(bmp);
 
             itemView.findViewById<TextView>(R.id.textViewTimestamp).text = ticker.timestamp.
