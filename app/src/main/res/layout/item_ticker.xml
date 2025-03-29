@@ -13,8 +13,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Ticker Symbol"
+        android:text="@string/ticker_symbol"
         android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/imageChart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        />
 
     <TextView
         android:id="@+id/textViewLastPrice"
@@ -22,7 +29,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Last Price"
+        android:text="@string/last_price"
         android:textSize="16sp" />
 
     <TextView
@@ -31,6 +38,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Time"
+        android:text="@string/time"
         android:textSize="12sp" />
 </LinearLayout>
